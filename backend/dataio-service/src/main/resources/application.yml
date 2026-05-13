@@ -1,0 +1,42 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: dataio-service
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/mkfmm-dataio}
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASS:guest}
+    publisher-confirm-type: correlated
+    publisher-returns: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    mongo:
+      enabled: true
+    rabbit:
+      enabled: true
+    diskspace:
+      enabled: true
+
+mkfmm:
+  resource-service:
+    url: ${RESOURCE_SERVICE_URL:http://localhost:8084}
+    timeout: 30s

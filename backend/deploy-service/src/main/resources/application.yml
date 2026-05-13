@@ -1,0 +1,42 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: deploy-service
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/mkfmm-deploy}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASS:guest}
+    publisher-confirm-type: correlated
+    publisher-returns: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    mongo:
+      enabled: true
+    rabbit:
+      enabled: true
+    diskspace:
+      enabled: true
+      path: ${DEPLOY_FILE_PATH:/data/deployments}
+      threshold: 104857600
+
+mkfmm:
+  dataio-service:
+    url: ${DATAIO_SERVICE_URL:http://localhost:8085}
+    timeout: 60s
+  deploy:
+    file-path: ${DEPLOY_FILE_PATH:/data/deployments}

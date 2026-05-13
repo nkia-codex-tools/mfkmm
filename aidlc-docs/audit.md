@@ -263,3 +263,56 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: CONSTRUCTION Phase - Code Generation stage completed for Auth + Gateway + Shared unit. All design phases now complete for Dev 1 unit.
 
 ---
+
+## Dev 3 Session Start - Functional Design (DataIO + Deploy + Frontend)
+**Timestamp**: 2026-05-13T14:00:00Z
+**User Input**: "내가 3번 개발자 역할도 진행해야 해. 현재 상태를 알려줘"
+**AI Response**: Dev 3 현재 상태 안내 - DataIO, Deploy, Frontend 모두 미시작. Dev 1 완료, Dev 2 진행중이나 의존성 없이 바로 시작 가능함을 설명.
+**Context**: CONSTRUCTION Phase - Dev 3 (DataIO + Deploy + Frontend) session start.
+
+---
+
+## Dev 3 - Functional Design Start
+**Timestamp**: 2026-05-13T14:01:00Z
+**User Input**: "3번 진행 해"
+**AI Response**: DataIO Service + Deploy Service + Frontend의 Functional Design 문서 생성. domain-entities.md (ImportJob, ImportError, ImportRow, ExportRequest, ExportResult, Deployment, Frontend states), business-rules.md (BR-IMP 6개, BR-EXP 4개, BR-DEP 4개, BR-FE 5개), business-logic-model.md (12개 flow + PBT properties).
+**Context**: CONSTRUCTION Phase - Functional Design for Dev 3 units (DataIO + Deploy + Frontend).
+
+---
+
+## Dev 3 - NFR Requirements
+**Timestamp**: 2026-05-13T14:05:00Z
+**User Input**: "진행해줘. 그것도 dev3에 있는거지?"
+**AI Response**: NFR Requirements 문서 생성. nfr-requirements.md (Performance 4개, Reliability 4개, Security 3개, Ops 3개, Testing 2개), tech-stack-decisions.md (DataIO: POI+WebClient+RabbitMQ, Deploy: WebClient+Volume, Frontend: React+Vite+Tailwind+Axios+React Router+React Hook Form, Testing: jqwik+fast-check).
+**Context**: CONSTRUCTION Phase - NFR Requirements for Dev 3 units. Applied same patterns as Dev 1 (Docker healthcheck, at-least-once MQ, actuator health).
+
+---
+
+## Dev 3 - NFR Design
+**Timestamp**: 2026-05-13T14:10:00Z
+**User Input**: "그것도 dev3범위이면 진행해줘"
+**AI Response**: NFR Design 문서 생성. 포함 내용: (1) File Processing - Strategy pattern (Excel/TSV/JSON), temp file management, (2) Import Pipeline - validation → parse → duplicate check → save, REST client to Resource Service, internal API convention, (3) Deploy File Storage - Docker named volume, directory structure, disk health check, (4) RabbitMQ events - 3 new routing keys (import/export/deploy completed), (5) Frontend Architecture - full directory structure, Axios interceptor for token refresh, route-based code splitting, permission-based navigation, (6) Docker healthchecks for 3 services, (7) Error codes (DATAIO_001~007, DEPLOY_001~004), (8) Frontend error handling with Toast system, (9) PBT design - jqwik + fast-check test properties, (10) Configuration management - env vars, Spring profiles, nginx config.
+**Context**: CONSTRUCTION Phase - NFR Design for Dev 3 units complete.
+
+---
+
+## Dev 3 - Infrastructure Design
+**Timestamp**: 2026-05-13T14:15:00Z
+**User Input**: "응 진행해줘"
+**AI Response**: Infrastructure Design 문서 생성. 포함 내용: (1) Docker Compose - dataio-service(:8085), deploy-service(:8086), frontend(:3000), deploy-data volume, (2) Network communication - dataio→resource REST, deploy→dataio REST, AMQP events, (3) Dockerfiles - dataio/deploy (eclipse-temurin:17-jre-alpine), frontend (multi-stage node:20-alpine→nginx:alpine), (4) Nginx config - SPA fallback, gzip, static caching, (5) MongoDB collections - import_jobs (mkfmm-dataio), deployments (mkfmm-deploy), (6) RabbitMQ queues - history.dataio-events, history.deploy-events with DLQ, (7) Spring application.yml for both services, (8) Gradle build configs + package.json, (9) Dev workflow - local and full Docker.
+**Context**: CONSTRUCTION Phase - Infrastructure Design for Dev 3 units complete.
+
+---
+
+## Dev 3 - Code Generation (DataIO + Deploy + Frontend)
+**Timestamp**: 2026-05-13T14:20:00Z
+**User Input**: "진행해줘"
+**AI Response**: Code Generation 완료. 총 83개 파일 생성 + settings.gradle.kts 수정 + shared event 추가:
+- DataIO Service (36 files): Domain(enums, ImportJob, ImportRow, ImportError, ExportResult), Application(ImportUseCase, ExportUseCase, ResourceServicePort, FileProcessor, ImportJobRepository, EventPublisherPort, ImportApplicationService, ExportApplicationService, FileProcessorFactory), Adapters(ExcelFileProcessor, TsvFileProcessor, JsonFileProcessor, ResourceServiceClient, RabbitEventPublisher, ImportJobDocument, SpringDataImportJobRepository, MongoImportJobRepositoryAdapter, ImportController, ExportController, GlobalExceptionHandler, ImportResponse), Config(RabbitConfig, FileProcessorConfig), DataioServiceApplication, application.yml, Dockerfile, PBT test
+- Deploy Service (21 files): Domain(Deployment), Application(DeployUseCase, DeploymentRepository, DataioServicePort, EventPublisherPort, DeployApplicationService), Adapters(DataioServiceClient, RabbitEventPublisher, DeploymentDocument, SpringDataDeploymentRepository, MongoDeploymentRepositoryAdapter, DeployController, GlobalExceptionHandler, DeployRequest, DeployResponse), Config(RabbitConfig), DeployServiceApplication, application.yml, Dockerfile, PBT test
+- Frontend (26 files): Config(package.json, tsconfig, vite, tailwind, postcss, index.html, Dockerfile, nginx.conf, .env), Core(main.tsx, index.css, App.tsx, types), Auth(AuthContext, LoginPage, ProtectedRoute), Shared(client, endpoints, Layout, Pagination, Toast), Features(ResourceListPage, ImportPage, ExportPage, DeployPage)
+- Shared Library: DataioEvents.java, DeployEvents.java 추가
+- settings.gradle.kts: dataio-service, deploy-service 모듈 추가
+**Context**: CONSTRUCTION Phase - Code Generation for Dev 3 units complete. All stages for Dev 3 are DONE.
+
+---
