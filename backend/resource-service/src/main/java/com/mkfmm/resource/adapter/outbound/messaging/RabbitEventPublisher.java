@@ -24,9 +24,9 @@ public class RabbitEventPublisher implements EventPublisherPort {
     public void publish(BaseEvent event, String routingKey) {
         try {
             rabbitTemplate.convertAndSend(EXCHANGE, routingKey, event);
-            log.info("Published event: {} with key: {}", event.getEventType(), routingKey);
+            log.info("Published event: {} with key: {}", event.eventType(), routingKey);
         } catch (Exception e) {
-            log.error("Failed to publish event: {} - {}", event.getEventType(), e.getMessage());
+            log.error("Failed to publish event: {} - {}", event.eventType(), e.getMessage());
             throw e;
         }
     }
@@ -36,9 +36,9 @@ public class RabbitEventPublisher implements EventPublisherPort {
     public void publishAsync(BaseEvent event, String routingKey) {
         try {
             rabbitTemplate.convertAndSend(EXCHANGE, routingKey, event);
-            log.info("Published async event: {} with key: {}", event.getEventType(), routingKey);
+            log.info("Published async event: {} with key: {}", event.eventType(), routingKey);
         } catch (Exception e) {
-            log.warn("Failed to publish async event (non-critical): {} - {}", event.getEventType(), e.getMessage());
+            log.warn("Failed to publish async event (non-critical): {} - {}", event.eventType(), e.getMessage());
         }
     }
 }

@@ -21,35 +21,36 @@ public class EventConsumerService {
         this.workLogRepository = workLogRepository;
     }
 
+    @SuppressWarnings("unchecked")
     public void processEvent(BaseEvent event) {
-        if (workLogRepository.existsBySourceEvent(event.getEventId())) {
-            log.debug("Duplicate event ignored: {}", event.getEventId());
+        if (workLogRepository.existsBySourceEvent(event.eventId())) {
+            log.debug("Duplicate event ignored: {}", event.eventId());
             return;
         }
 
-        WorkLogType type = WorkLogType.fromEventType(event.getEventType());
-        WorkLog workLog = new WorkLog(type, event.getUserId(), event.getTimestamp(), event.getEventId());
+        WorkLogType type = WorkLogType.fromEventType(event.eventType());
+        WorkLog workLog = new WorkLog(type, event.userId(), event.timestamp(), event.eventId());
 
-        Map<String, Object> payload = event.getPayload();
-        if (payload != null) {
-            workLog.setResourceId(getStr(payload, "resourceId"));
-            workLog.setResourceKey(getStr(payload, "resourceKey"));
-            workLog.setPreviousValue(getStr(payload, "previousContent"));
-            workLog.setNewValue(getStr(payload, "newContent"));
-            workLog.setDetails(payload.toString());
-        }
+        Object rawPayload = event.payload();
+        if (rawPayload instanceof Map<?, ?> payload) {
+            Map<String, Object> map = (Map<String, Object>) payload;
+            workLog.setResourceId(getStr(map, "resourceId"));
+            workLog.setResourceKey(getStr(map, "resourceKey"));
+            workLog.setPreviousValue(getStr(map, "previousContent"));
+            workLog.setNewValue(getStr(map, "newContent"));
+            workLog.setDetails(map.toString());
 
-        workLogRepository.save(workLog);
-
-        if ("UserDeleted".equals(event.getEventType())) {
-            String deletedUserId = getStr(payload, "userId");
-            if (deletedUserId != null) {
-                long marked = workLogRepository.markForDeletionByUserId(deletedUserId);
-                log.info("Marked {} work logs for deletion (userId: {})", marked, deletedUserId);
+            if ("UserDeleted".equals(event.eventType())) {
+                String deletedUserId = getStr(map, "userId");
+                if (deletedUserId != null) {
+                    long marked = workLogRepository.markForDeletionByUserId(deletedUserId);
+                    log.info("Marked {} work logs for deletion (userId: {})", marked, deletedUserId);
+                }
             }
         }
 
-        log.info("Processed event: {} for user: {}", event.getEventType(), event.getUserId());
+        workLogRepository.save(workLog);
+        log.info("Processed event: {} for user: {}", event.eventType(), event.userId());
     }
 
     private String getStr(Map<String, Object> map, String key) {

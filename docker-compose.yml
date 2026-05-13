@@ -102,9 +102,168 @@ services:
     networks:
       - mkfmm-network
 
+  user-service:
+    build:
+      context: ./backend/user-service
+      dockerfile: Dockerfile
+    container_name: mkfmm-user-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/user-db
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - APP_AUDIT_LOG_RETENTION_DAYS=730
+      - MKFMM_ROOT_USER=rootadmin
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: on-failure
+    networks:
+      - mkfmm-network
+
+  history-service:
+    build:
+      context: ./backend/history-service
+      dockerfile: Dockerfile
+    container_name: mkfmm-history-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/history-db
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - APP_RETENTION_SEARCH_DAYS=180
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: on-failure
+    networks:
+      - mkfmm-network
+
+  resource-service:
+    build:
+      context: ./backend/resource-service
+      dockerfile: Dockerfile
+    container_name: mkfmm-resource-service
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/resource-db
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - APP_SIMILARITY_THRESHOLD=3
+      - APP_SIMILARITY_MAX_RESULTS=5
+      - APP_HARD_DELETE_RETENTION_DAYS=30
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8084/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: on-failure
+    networks:
+      - mkfmm-network
+
+  dataio-service:
+    build:
+      context: ./backend/dataio-service
+      dockerfile: Dockerfile
+    container_name: mkfmm-dataio-service
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/dataio-db
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - RESOURCE_SERVICE_URL=http://resource-service:8084
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      resource-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: on-failure
+    networks:
+      - mkfmm-network
+
+  deploy-service:
+    build:
+      context: ./backend/deploy-service
+      dockerfile: Dockerfile
+    container_name: mkfmm-deploy-service
+    ports:
+      - "8086:8086"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/deploy-db
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - DATAIO_SERVICE_URL=http://dataio-service:8085
+    volumes:
+      - deploy-data:/app/deployments
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      dataio-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: on-failure
+    networks:
+      - mkfmm-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mkfmm-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+    restart: on-failure
+    networks:
+      - mkfmm-network
+
 volumes:
   mongodb-data:
   rabbitmq-data:
+  deploy-data:
 
 networks:
   mkfmm-network:

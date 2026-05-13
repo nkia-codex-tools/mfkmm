@@ -28,7 +28,7 @@ public class EventListener {
             eventConsumerService.processEvent(event);
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
-            log.error("Failed to process event: {} - {}", event.getEventId(), e.getMessage());
+            log.error("Failed to process event: {} - {}", event.eventId(), e.getMessage());
             try {
                 channel.basicNack(deliveryTag, false, false);
             } catch (Exception nackEx) {
