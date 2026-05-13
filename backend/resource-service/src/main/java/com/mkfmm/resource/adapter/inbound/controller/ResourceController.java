@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/resources")
+@RequestMapping("/resources")
 public class ResourceController {
 
     private final ResourceUseCase resourceUseCase;
@@ -52,6 +52,37 @@ public class ResourceController {
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping("/check-duplicate")
+    public ResponseEntity<?> checkDuplicate(@RequestParam String resourceKey,
+                                            @RequestHeader("X-User-Id") String requesterId,
+                                            @RequestHeader("X-User-Role") String requesterRole) {
+        Object result = resourceUseCase.createResource(resourceKey, null, null, null, requesterId, requesterRole);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/find-similar")
+    public ResponseEntity<?> findSimilar(@RequestBody CreateResourceRequest request,
+                                         @RequestHeader("X-User-Id") String requesterId,
+                                         @RequestHeader("X-User-Role") String requesterRole) {
+        Object result = resourceUseCase.createResource(
+                request.resourceKey(), request.resourceType(), request.content(),
+                request.description(), requesterId, requesterRole);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<ResourceResponse>> searchResources(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String resourceType,
+            @RequestParam(required = false) String createdBy,
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate,
+            Pageable pageable,
+            @RequestHeader("X-User-Id") String requesterId) {
+        Page<Resource> results = searchUseCase.search(keyword, resourceType, createdBy, startDate, endDate, pageable, requesterId);
+        return ResponseEntity.ok(results.map(ResourceResponse::from));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ResourceResponse> updateResource(@PathVariable String id,
                                                             @Valid @RequestBody UpdateResourceRequest request,
@@ -70,21 +101,9 @@ public class ResourceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResourceResponse> getResource(@PathVariable String id) {
+    public ResponseEntity<ResourceResponse> getResource(@PathVariable String id,
+                                                         @RequestHeader("X-User-Id") String requesterId) {
         Resource resource = resourceUseCase.getResourceById(id);
         return ResponseEntity.ok(ResourceResponse.from(resource));
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<Page<ResourceResponse>> searchResources(
-            @RequestParam(required = false) String keyword,
-            @RequestParam(required = false) String resourceType,
-            @RequestParam(required = false) String createdBy,
-            @RequestParam(required = false) String startDate,
-            @RequestParam(required = false) String endDate,
-            Pageable pageable,
-            @RequestHeader("X-User-Id") String requesterId) {
-        Page<Resource> results = searchUseCase.search(keyword, resourceType, createdBy, startDate, endDate, pageable, requesterId);
-        return ResponseEntity.ok(results.map(ResourceResponse::from));
     }
 }

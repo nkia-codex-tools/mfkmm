@@ -21,9 +21,10 @@ export default function ExportPage() {
       });
 
       const contentDisposition = response.headers['content-disposition'];
+      const ext = format === 'EXCEL' ? 'xlsx' : format.toLowerCase();
       const fileName = contentDisposition
         ? contentDisposition.split('filename="')[1]?.replace('"', '')
-        : `export.${format.toLowerCase()}`;
+        : `export.${ext}`;
 
       const blob = new Blob([response.data]);
       const downloadUrl = URL.createObjectURL(blob);

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserManagementUseCase userManagementUseCase;
@@ -56,15 +56,16 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable String id) {
-        User user = userManagementUseCase.getUserById(id);
-        return ResponseEntity.ok(UserResponse.from(user));
-    }
-
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getMyProfile(@RequestHeader("X-User-Id") String userId) {
         User user = userManagementUseCase.getUserByUserId(userId);
+        return ResponseEntity.ok(UserResponse.from(user));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> getUser(@PathVariable String id,
+                                                 @RequestHeader("X-User-Id") String requesterId) {
+        User user = userManagementUseCase.getUserById(id);
         return ResponseEntity.ok(UserResponse.from(user));
     }
 

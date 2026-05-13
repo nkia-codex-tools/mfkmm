@@ -7,6 +7,8 @@ export const AUTH = {
 export const RESOURCES = {
   SEARCH: '/resources/search',
   BASE: '/resources',
+  CREATE: '/resources',
+  CONFIRM_CHOICE: '/resources/confirm-choice',
   CHECK_DUPLICATE: '/resources/check-duplicate',
   FIND_SIMILAR: '/resources/find-similar',
 } as const;

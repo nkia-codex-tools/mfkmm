@@ -20,7 +20,7 @@ export type ConflictPolicy = 'SKIP' | 'OVERWRITE';
 export interface Resource {
   id: string;
   resourceType: ResourceType;
-  key: string;
+  resourceKey: string;
   content: string;
   description: string;
   createdBy: string;
@@ -53,6 +53,12 @@ export interface Deployment {
   fileSize: number;
   userId: string;
   createdAt: string;
+}
+
+export interface SimilarityResult {
+  resource: Resource;
+  distance: number;
+  matchType: string;
 }
 
 export interface Page<T> {

@@ -16,8 +16,8 @@ export default function ResourceListPage() {
     setLoading(true);
     try {
       const params: Record<string, string> = { page: String(pageNum), size: '20' };
-      if (query) params.q = query;
-      if (resourceType) params.type = resourceType;
+      if (query) params.keyword = query;
+      if (resourceType) params.resourceType = resourceType;
       const response = await client.get(RESOURCES.SEARCH, { params });
       setData(response.data);
       setPage(pageNum);
@@ -74,7 +74,7 @@ export default function ResourceListPage() {
                 <tr key={r.id} className="hover:bg-gray-50">
                   <td className="px-4 py-3 text-sm">{r.resourceType}</td>
                   <td className="px-4 py-3 text-sm">
-                    <Link to={`/resources/${r.id}`} className="text-blue-600 hover:underline">{r.key}</Link>
+                    <Link to={`/resources/${r.id}`} className="text-blue-600 hover:underline">{r.resourceKey}</Link>
                   </td>
                   <td className="px-4 py-3 text-sm truncate max-w-xs">{r.content}</td>
                   <td className="px-4 py-3 text-sm">{r.createdBy}</td>
