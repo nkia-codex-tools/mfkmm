@@ -21,16 +21,48 @@
 | Security Baseline | No | Requirements Analysis |
 | Property-Based Testing | Yes (Full) | Requirements Analysis |
 
+## Developer Assignment
+| Developer | Units |
+|---|---|
+| Dev 1 (기반 인프라) | Auth Service, API Gateway, Shared Library |
+| Dev 2 (핵심 도메인) | User Service, Resource Service, History Service |
+| Dev 3 (데이터 처리 + UI) | DataIO Service, Deploy Service, Frontend |
+
 ## Stage Progress
-- [x] INCEPTION - Workspace Detection (COMPLETED)
-- [x] INCEPTION - Requirements Analysis (COMPLETED)
-- [x] INCEPTION - User Stories (COMPLETED)
-- [x] INCEPTION - Workflow Planning (COMPLETED)
-- [x] INCEPTION - Application Design (COMPLETED)
-- [x] INCEPTION - Units Generation (COMPLETED)
-- [ ] CONSTRUCTION - Functional Design (EXECUTE, per-unit)
-- [ ] CONSTRUCTION - NFR Requirements (EXECUTE, per-unit)
-- [ ] CONSTRUCTION - NFR Design (EXECUTE, per-unit)
-- [ ] CONSTRUCTION - Infrastructure Design (EXECUTE, per-unit)
-- [ ] CONSTRUCTION - Code Generation (EXECUTE, per-unit)
-- [ ] CONSTRUCTION - Build and Test (EXECUTE)
+
+### INCEPTION PHASE (공통 - 완료)
+- [x] Workspace Detection (COMPLETED)
+- [x] Requirements Analysis (COMPLETED)
+- [x] User Stories (COMPLETED)
+- [x] Workflow Planning (COMPLETED)
+- [x] Application Design (COMPLETED)
+- [x] Units Generation (COMPLETED)
+
+### CONSTRUCTION PHASE - Dev 1 (Auth + Gateway + Shared)
+- [x] Functional Design (COMPLETED)
+- [ ] NFR Requirements (IN PROGRESS - 질문 대기: auth-gateway-shared-nfr-requirements-plan.md)
+- [ ] NFR Design
+- [ ] Infrastructure Design
+- [ ] Code Generation
+
+### CONSTRUCTION PHASE - Dev 2 (User + Resource + History)
+- [ ] User Service - Functional Design (IN PROGRESS - 질문 대기: user-service-functional-design-plan.md)
+- [ ] User Service - NFR Requirements
+- [ ] User Service - NFR Design
+- [ ] User Service - Infrastructure Design
+- [ ] User Service - Code Generation
+- [ ] Resource Service - Functional Design
+- [ ] Resource Service - NFR Requirements ~ Code Generation
+- [ ] History Service - Functional Design
+- [ ] History Service - NFR Requirements ~ Code Generation
+
+### CONSTRUCTION PHASE - Dev 3 (DataIO + Deploy + Frontend)
+- [ ] DataIO Service - Functional Design
+- [ ] DataIO Service - NFR Requirements ~ Code Generation
+- [ ] Deploy Service - Functional Design
+- [ ] Deploy Service - NFR Requirements ~ Code Generation
+- [ ] Frontend - Functional Design
+- [ ] Frontend - NFR Requirements ~ Code Generation
+
+### Build and Test (전체 통합 - 모든 유닛 완료 후)
+- [ ] Build and Test (EXECUTE)

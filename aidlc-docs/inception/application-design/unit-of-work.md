@@ -155,6 +155,28 @@ Phase 6 (배포):  Deploy Service
 
 ---
 
+## Developer Assignment (3명 분배)
+
+| Developer | Units | Scope |
+|---|---|---|
+| **Dev 1** (기반 인프라) | Auth Service, API Gateway, Shared Library | 인증, JWT, 라우팅, 공유 라이브러리 |
+| **Dev 2** (핵심 도메인) | User Service, Resource Service, History Service | 사용자/권한 관리, 리소스 CRUD/유사도, 이력 |
+| **Dev 3** (데이터 처리 + UI) | DataIO Service, Deploy Service, Frontend | IMPORT/EXPORT, 배포, 전체 UI |
+
+### 개발 순서 및 의존성 조율
+```
+Week 1: Dev1(Auth+Shared) | Dev2(User 설계) | Dev3(Frontend 기본 구조)
+Week 2: Dev1(Gateway)     | Dev2(Resource)   | Dev3(Auth UI + DataIO)
+Week 3: Dev1(통합 지원)    | Dev2(History)    | Dev3(Deploy + Admin UI)
+```
+
+### 인터페이스 합의 포인트
+- Dev1 → Dev2/Dev3: Shared Library(이벤트 스키마, JWT 유틸, DTO) 우선 제공
+- Dev2 → Dev3: Resource API 스펙(OpenAPI) 우선 확정
+- Dev1 → All: API Gateway 라우팅 설정 공유
+
+---
+
 ## Code Organization Strategy
 
 ### Backend (각 서비스 공통 구조 - Hexagonal)

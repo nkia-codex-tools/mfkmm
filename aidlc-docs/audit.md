@@ -183,3 +183,27 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: CONSTRUCTION Phase - Functional Design (Unit 1) approved. Next: NFR Requirements.
 
 ---
+
+## Unit Switch - User Request
+**Timestamp**: 2026-05-13T12:27:00Z
+**User Input**: "취소 나는 Unit 2를 진행할 꺼야"
+**AI Response**: Unit 1 NFR Requirements 중단. Unit 2 (User Service) Functional Design으로 전환.
+**Context**: CONSTRUCTION Phase - User requested switch from Unit 1 to Unit 2. Unit 1 Functional Design complete, NFR Requirements pending.
+
+---
+
+## Developer Assignment
+**Timestamp**: 2026-05-13T12:28:00Z
+**User Input**: "3명의 개발자가 Unit을 분할해서 개발할꺼야 묶어줘"
+**AI Response**: Proposed 3 options. User selected: 기반/도메인/IO+UI 분배. Dev1: Auth+Gateway+Shared, Dev2: User+Resource+History, Dev3: DataIO+Deploy+Frontend.
+**Context**: CONSTRUCTION Phase - Developer team assignment decided.
+
+---
+
+## Documentation for Team Handoff
+**Timestamp**: 2026-05-13T12:29:00Z
+**User Input**: "문서에 기록해줘. 다른 개발자가 git pull 받아서 진행 할께"
+**AI Response**: Created DEVELOPER-GUIDE.md with full team assignment, current status per unit, resume instructions per developer, dependency coordination notes, and reference document paths. Updated aidlc-state.md with per-developer progress tracking.
+**Context**: CONSTRUCTION Phase - Team handoff documentation created. Each developer can git pull and resume their assigned units independently.
+
+---
