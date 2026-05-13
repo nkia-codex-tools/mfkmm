@@ -1,0 +1,32 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: resource-service
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/resource-db}
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1000
+          multiplier: 2.0
+          max-attempts: 3
+
+app:
+  similarity:
+    threshold: ${APP_SIMILARITY_THRESHOLD:3}
+    max-results: ${APP_SIMILARITY_MAX_RESULTS:5}
+  hard-delete:
+    retention-days: ${APP_HARD_DELETE_RETENTION_DAYS:30}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

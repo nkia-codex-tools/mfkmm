@@ -264,6 +264,165 @@ AI-DLC 워크플로우를 시작해봅시다."
 
 ---
 
+## Dev 2 Resumed - User Service Functional Design
+**Timestamp**: 2026-05-13T12:30:00Z
+**User Input**: "나는 2번 개발자야 진행해줘" → "완료" (Q1=C Extended fields, Q2=A Full info, Q3=C Delete history too, Q4=C Admin sets + force change)
+**AI Response**: Generated functional design artifacts for User Service: domain-entities.md (User, AuditLog, Events, DTOs), business-rules.md (USR, PERM, UNLOCK, AUDIT, INIT rules), business-logic-model.md (9 flows + PBT properties).
+**Context**: CONSTRUCTION Phase - Dev 2, User Service Functional Design complete. Presenting for approval.
+
+---
+
+## User Service Functional Design - Approved
+**Timestamp**: 2026-05-13T12:31:00Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: User Service Functional Design approved. Proceeding to NFR Requirements.
+**Context**: CONSTRUCTION Phase - Dev 2, User Service Functional Design approved. Next: NFR Requirements.
+
+---
+
+## User Service NFR Requirements - Answers Received
+**Timestamp**: 2026-05-13T12:32:00Z
+**User Input**: "완료" (Q1=A Basic validation, Q2=C 2yr retention, Q3=C Retry/eventually consistent, Q4=C No specific target)
+**AI Response**: Generated nfr-requirements.md (validation, retention, reliability, performance, security, monitoring, testing) and tech-stack-decisions.md (Spring Boot 3, MongoDB, RabbitMQ, jqwik, Testcontainers). PBT-09 compliant.
+**Context**: CONSTRUCTION Phase - Dev 2, User Service NFR Requirements complete. Presenting for approval.
+
+---
+
+## User Service NFR Requirements - Approved
+**Timestamp**: 2026-05-13T12:33:00Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: NFR Requirements approved. Proceeding to NFR Design for User Service.
+**Context**: CONSTRUCTION Phase - Dev 2, User Service NFR Requirements approved. Next: NFR Design.
+
+---
+
+## User Service NFR Design - Answers & Generation
+**Timestamp**: 2026-05-13T12:34:00Z
+**User Input**: "완료" (Q1=B Admin UI for DLQ, Q2=A Daily 2AM schedule)
+**AI Response**: Generated nfr-design-patterns.md (6 patterns: Retry, DLQ, Validation, Data Retention, Eventually Consistent, Immutable Audit) and logical-components.md (RabbitMQ config, MongoDB indexes, scheduled jobs, DLQ management API, error handling strategy).
+**Context**: CONSTRUCTION Phase - Dev 2, User Service NFR Design complete. Presenting for approval.
+
+---
+
+## User Service NFR Design - Approved
+**Timestamp**: 2026-05-13T12:35:00Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: NFR Design approved. Proceeding to Infrastructure Design for User Service.
+**Context**: CONSTRUCTION Phase - Dev 2, User Service NFR Design approved. Next: Infrastructure Design.
+
+---
+
+## User Service Infrastructure Design - Answers & Generation
+**Timestamp**: 2026-05-13T12:36:00Z
+**User Input**: "완료" (Q1=A Single MongoDB instance with separate DBs, Q2=A No resource limits)
+**AI Response**: Generated infrastructure-design.md (Docker, MongoDB user-db, RabbitMQ mapping, indexes, env vars) and deployment-architecture.md (Docker Compose config, Dockerfile, health checks, local dev setup).
+**Context**: CONSTRUCTION Phase - Dev 2, User Service Infrastructure Design complete. Presenting for approval.
+
+---
+
+## User Service Infrastructure Design - Approved + Git Conflict Resolution
+**Timestamp**: 2026-05-13T12:37:00Z
+**User Input**: "git pull 했는 데 충돌나는 거 정리해주고 Continue to Next Stage"
+**AI Response**: Resolved merge conflict in audit.md (both Dev 1 and Dev 2 entries preserved). Infrastructure Design approved. Proceeded to Code Generation planning.
+**Context**: CONSTRUCTION Phase - Dev 2, Infrastructure Design approved. Git conflict in audit.md resolved (Dev 1 code generation entries + Dev 2 design entries merged).
+
+---
+
+## User Service Code Generation Plan - Approved
+**Timestamp**: 2026-05-13T12:38:00Z
+**User Input**: "승인"
+**AI Response**: Code Generation Plan approved. 40 steps across 10 phases. Starting Part 2 - Generation.
+**Context**: CONSTRUCTION Phase - Dev 2, User Service Code Generation Part 1 complete. Starting Part 2.
+
+---
+
+## User Service Code Generation - Complete
+**Timestamp**: 2026-05-13T12:40:00Z
+**AI Response**: Code Generation (Part 2) 완료. 총 34개 파일 생성:
+- Phase A: Project structure (build.gradle.kts, Dockerfile, application.yml, Application.java)
+- Phase B: Domain (User, Role, AuditLog, AuditAction)
+- Phase C: Ports (UserManagementUseCase, PermissionUseCase, UserRepository, AuditLogRepository, EventPublisherPort)
+- Phase D: Services (UserManagementService, PermissionService, AuditLogPurgeService)
+- Phase E: Controllers + DTOs (UserController, PermissionController, GlobalExceptionHandler, CreateUserRequest, UpdateUserRequest, GrantPermissionRequest, UserResponse)
+- Phase F: Persistence (UserDocument, AuditLogDocument, SpringData repos, Mongo adapters)
+- Phase G: Messaging (RabbitEventPublisher, RabbitConfig)
+- Phase I: Tests (UserManagementServiceTest, UserPermissionPropertyTest, UserValidationPropertyTest)
+**Context**: CONSTRUCTION Phase - Dev 2, User Service Code Generation complete. Presenting for approval.
+
+---
+
+## User Service Code Generation - Approved
+**Timestamp**: 2026-05-13T12:41:00Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: User Service Code Generation approved. All stages complete for User Service. Proceeding to Resource Service Functional Design.
+**Context**: CONSTRUCTION Phase - Dev 2, User Service fully complete. Next: Resource Service.
+
+---
+
+## Resource Service Functional Design - Answers & Generation
+**Timestamp**: 2026-05-13T12:42:00Z
+**User Input**: "완료. 개발자 1, 2, 3은 분리되어 개발 진행하고 있는 거지?" (Q1=A Levenshtein≤3, Q2=A Max 5, Q3=A deletedAt 30d, Q4=A Excluded from search)
+**AI Response**: Confirmed team is working independently. Generated functional design: domain-entities.md (Resource, ResourceType, SimilarityResult, DuplicateCheckResult, 5 events), business-rules.md (RES, DUP, SIM, LEVENSHTEIN rules), business-logic-model.md (7 flows + Levenshtein algorithm + PBT properties).
+**Context**: CONSTRUCTION Phase - Dev 2, Resource Service Functional Design complete. Presenting for approval.
+
+---
+
+## Resource Service Functional Design - Approved
+**Timestamp**: 2026-05-13T12:43:00Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Resource Service Functional Design approved. Proceeding to NFR Requirements.
+**Context**: CONSTRUCTION Phase - Dev 2, Resource Service Functional Design approved. Next: NFR Requirements.
+
+---
+
+## Resource Service NFR Requirements - Complete & Approved
+**Timestamp**: 2026-05-13T12:44:00Z
+**User Input**: "완료" (Q1=A Full scan, Q2=B 1K-10K) → "Continue to Next Stage"
+**AI Response**: Generated nfr-requirements.md and tech-stack-decisions.md. NFR approved. Proceeding to NFR Design.
+**Context**: CONSTRUCTION Phase - Dev 2, Resource Service NFR Requirements approved. Next: NFR Design.
+
+---
+
+## Resource Service NFR Design - Complete & Approved
+**Timestamp**: 2026-05-13T12:45:00Z
+**User Input**: "Continue to Next Stage" (x2)
+**AI Response**: Generated nfr-design-patterns.md (5 patterns: Two-Phase Similarity, Soft Delete+TTL, Retry+DLQ, Partial Unique Index, Async Search Event) and logical-components.md (LevenshteinCalculator, MongoDB indexes, RabbitMQ config, Hard Delete scheduler). NFR Design approved. Proceeding to Infrastructure Design.
+**Context**: CONSTRUCTION Phase - Dev 2, Resource Service NFR Design approved. Next: Infrastructure Design.
+
+---
+
+## Resource Service Infrastructure Design - Complete & Approved
+**Timestamp**: 2026-05-13T12:46:00Z
+**User Input**: "Continue to Next Stage" (x2)
+**AI Response**: Generated infrastructure-design.md (Docker port 8084, resource-db, partial unique index, text index, RabbitMQ config, Docker Compose snippet, env vars). Infrastructure Design approved. Proceeding to Code Generation.
+**Context**: CONSTRUCTION Phase - Dev 2, Resource Service Infrastructure Design approved. Next: Code Generation.
+
+---
+
+## Resource Service Code Generation - Complete
+**Timestamp**: 2026-05-13T12:48:00Z
+**User Input**: "승인" (Code Gen Plan)
+**AI Response**: Code Generation 완료. 총 26개 파일: Domain(Resource, ResourceType, SimilarityResult, DuplicateCheckResult, LevenshteinCalculator), Ports(4), Services(ResourceAppService, ResourceSearchAppService, HardDeleteService), Controller+DTOs(5), Persistence+Messaging(ResourceDocument, RabbitEventPublisher, RabbitConfig), PBT Tests(LevenshteinPropertyTest 6 properties + ResourceInvariantPropertyTest 4 properties).
+**Context**: CONSTRUCTION Phase - Dev 2, Resource Service Code Generation complete. Presenting for approval.
+
+---
+
+## Resource Service Code Generation - Approved
+**Timestamp**: 2026-05-13T12:49:00Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Resource Service Code Generation approved. All stages complete for Resource Service. Proceeding to History Service Functional Design.
+**Context**: CONSTRUCTION Phase - Dev 2, Resource Service fully complete. Next: History Service.
+
+---
+
+## History Service Functional Design - Answers & Generation
+**Timestamp**: 2026-05-13T12:50:00Z
+**User Input**: "완료" (Q1=A Simple text diff, Q2=B Async batch delete) → "Continue to Next Stage"
+**AI Response**: Generated functional design artifacts: domain-entities.md (WorkLog, 15 WorkLogTypes, event-to-worklog mapping), business-rules.md (HIST, QUERY, RETENTION rules), business-logic-model.md (7 flows + PBT properties). Functional Design approved. Proceeding to NFR Requirements.
+**Context**: CONSTRUCTION Phase - Dev 2, History Service Functional Design approved. Next: NFR Requirements.
+
+---
+
 ## Dev 3 Session Start - Functional Design (DataIO + Deploy + Frontend)
 **Timestamp**: 2026-05-13T14:00:00Z
 **User Input**: "내가 3번 개발자 역할도 진행해야 해. 현재 상태를 알려줘"

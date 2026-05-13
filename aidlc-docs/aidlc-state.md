@@ -46,15 +46,21 @@ cla# AI-DLC State Tracking
 - [x] Code Generation (COMPLETED)
 
 ### CONSTRUCTION PHASE - Dev 2 (User + Resource + History)
-- [ ] User Service - Functional Design (IN PROGRESS - 질문 대기: user-service-functional-design-plan.md)
-- [ ] User Service - NFR Requirements
-- [ ] User Service - NFR Design
-- [ ] User Service - Infrastructure Design
-- [ ] User Service - Code Generation
-- [ ] Resource Service - Functional Design
-- [ ] Resource Service - NFR Requirements ~ Code Generation
-- [ ] History Service - Functional Design
-- [ ] History Service - NFR Requirements ~ Code Generation
+- [x] User Service - Functional Design (COMPLETED)
+- [x] User Service - NFR Requirements (COMPLETED)
+- [x] User Service - NFR Design (COMPLETED)
+- [x] User Service - Infrastructure Design (COMPLETED)
+- [x] User Service - Code Generation (COMPLETED)
+- [x] Resource Service - Functional Design (COMPLETED)
+- [x] Resource Service - NFR Requirements (COMPLETED)
+- [x] Resource Service - NFR Design (COMPLETED)
+- [x] Resource Service - Infrastructure Design (COMPLETED)
+- [x] Resource Service - Code Generation (COMPLETED)
+- [x] History Service - Functional Design (COMPLETED)
+- [x] History Service - NFR Requirements (COMPLETED)
+- [x] History Service - NFR Design (COMPLETED)
+- [x] History Service - Infrastructure Design (COMPLETED)
+- [x] History Service - Code Generation (COMPLETED)
 
 ### CONSTRUCTION PHASE - Dev 3 (DataIO + Deploy + Frontend)
 - [x] Functional Design (DataIO + Deploy + Frontend - COMPLETED)
