@@ -45,6 +45,20 @@ public class Resource {
         return !deleted;
     }
 
+    public static Resource reconstruct(String id, String resourceKey, ResourceType resourceType,
+                                        String content, String description, String createdBy,
+                                        Instant createdAt, String updatedBy, Instant updatedAt,
+                                        boolean deleted, Instant deletedAt) {
+        Resource r = new Resource(resourceKey, resourceType, content, description, createdBy);
+        r.id = id;
+        r.createdAt = createdAt;
+        r.updatedBy = updatedBy;
+        r.updatedAt = updatedAt;
+        r.deleted = deleted;
+        r.deletedAt = deletedAt;
+        return r;
+    }
+
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
     public String getResourceKey() { return resourceKey; }

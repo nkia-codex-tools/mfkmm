@@ -78,12 +78,17 @@ public class InternalResourceController {
         var page = resourceRepository.search(null, null, null, null, null,
                 org.springframework.data.domain.PageRequest.of(0, 100000));
         List<Map<String, Object>> result = page.getContent().stream()
-                .map(r -> Map.<String, Object>of(
-                        "id", r.getId(),
-                        "resourceKey", r.getResourceKey(),
-                        "resourceType", r.getResourceType().name(),
-                        "content", r.getContent(),
-                        "description", r.getDescription() != null ? r.getDescription() : ""))
+                .map(r -> {
+                    Map<String, Object> map = new java.util.HashMap<>();
+                    map.put("id", r.getId());
+                    map.put("resourceKey", r.getResourceKey());
+                    map.put("resourceType", r.getResourceType().name());
+                    map.put("content", r.getContent());
+                    map.put("description", r.getDescription() != null ? r.getDescription() : "");
+                    map.put("createdBy", r.getCreatedBy());
+                    map.put("createdAt", r.getCreatedAt() != null ? r.getCreatedAt().toString() : "");
+                    return map;
+                })
                 .toList();
         return ResponseEntity.ok(result);
     }

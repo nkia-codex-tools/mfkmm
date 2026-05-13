@@ -111,9 +111,17 @@ public class MongoResourceRepositoryAdapter implements ResourceRepository {
     }
 
     private Resource toDomain(ResourceDocument doc) {
-        Resource r = new Resource(doc.getResourceKey(), ResourceType.valueOf(doc.getResourceType()),
-                doc.getContent(), doc.getDescription(), doc.getCreatedBy());
-        r.setId(doc.getId());
-        return r;
+        return Resource.reconstruct(
+                doc.getId(),
+                doc.getResourceKey(),
+                ResourceType.valueOf(doc.getResourceType()),
+                doc.getContent(),
+                doc.getDescription(),
+                doc.getCreatedBy(),
+                doc.getCreatedAt(),
+                doc.getUpdatedBy(),
+                doc.getUpdatedAt(),
+                doc.isDeleted(),
+                doc.getDeletedAt());
     }
 }
