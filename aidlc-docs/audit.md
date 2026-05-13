@@ -207,3 +207,59 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: CONSTRUCTION Phase - Team handoff documentation created. Each developer can git pull and resume their assigned units independently.
 
 ---
+
+## NFR Requirements - Dev 1 Session Start
+**Timestamp**: 2026-05-13T13:00:00Z
+**User Input**: "나는 1번 개발자야. 뭘 해야 해?"
+**AI Response**: Dev 1 현재 상태 확인 — Functional Design 완료, NFR Requirements 질문 5개 답변 대기 중임을 안내. 질문 요약 제공.
+**Context**: CONSTRUCTION Phase - Dev 1 (Auth + Gateway + Shared) session resumption.
+
+---
+
+## NFR Requirements - Dev 1 Answers
+**Timestamp**: 2026-05-13T13:01:00Z
+**User Input**: "다 추천하는걸로 해줘"
+**AI Response**: Recommended answers applied: Q1=B(RS256), Q2=C(특별한 기준 없음), Q3=B(At-least-once), Q4=B(Health check + 자동 재시작), Q5=A(Docker logs). Generated nfr-requirements.md and tech-stack-decisions.md. Updated plan checkboxes and aidlc-state.md.
+**Context**: CONSTRUCTION Phase - NFR Requirements stage completed for Auth + Gateway + Shared unit.
+
+---
+
+## NFR Design - Dev 1 Execution
+**Timestamp**: 2026-05-13T13:05:00Z
+**User Input**: "응 진행해줘"
+**AI Response**: NFR Design 문서 생성 완료. 포함 내용: (1) JWT RS256 key management - PEM 기반, auth service private/gateway public 분리, (2) RabbitMQ at-least-once - publisher confirms, manual ack, DLQ with 3 retries, eventId deduplication, (3) Docker healthcheck - 30s interval, 3 retries, actuator/health, restart on-failure max 5, (4) Security patterns - gateway JWT filter chain, header propagation, (5) Error response standard - code scheme, (6) Logging - stdout plain text, MDC context, (7) Config management - env vars, Spring profiles, (8) PBT design - jqwik test properties per NFR.
+**Context**: CONSTRUCTION Phase - NFR Design stage completed for Auth + Gateway + Shared unit.
+
+---
+
+## Infrastructure Design - Dev 1 Execution
+**Timestamp**: 2026-05-13T13:10:00Z
+**User Input**: "응 진행해줘"
+**AI Response**: Infrastructure Design 문서 생성 완료. 포함 내용: (1) Docker Compose service definitions - auth-service, api-gateway, mongodb, rabbitmq with healthchecks and depends_on, (2) Network topology - bridge network, internal communication, external port mapping, (3) Dockerfiles - eclipse-temurin:17-jre-alpine 기반, (4) JWT key volume strategy - named volume shared between services, (5) MongoDB database separation - per-service logical DBs with collection indexes, (6) RabbitMQ exchange/queue topology with DLQ, (7) Spring configuration profiles (default/docker), (8) Gradle multi-module build config, (9) Development workflow - local and full Docker.
+**Context**: CONSTRUCTION Phase - Infrastructure Design stage completed for Auth + Gateway + Shared unit.
+
+---
+
+## Code Generation - Dev 1 Execution
+**Timestamp**: 2026-05-13T13:15:00Z
+**User Input**: "진행해줘"
+**AI Response**: Code Generation Plan 생성 (Part 1) - 8 phases, ~52 files 계획.
+**Context**: CONSTRUCTION Phase - Code Generation planning for Auth + Gateway + Shared unit.
+
+---
+
+## Code Generation - Dev 1 Implementation
+**Timestamp**: 2026-05-13T13:20:00Z
+**User Input**: "진행해줘"
+**AI Response**: Code Generation (Part 2) 완료. 총 61개 파일 생성:
+- Phase A: Root build files + Shared Library (events, DTOs, exceptions) - 8 files
+- Phase B: Auth Domain (User, RefreshToken, LoginHistory, AccountLockEvent, Role, PasswordService) - 6 files
+- Phase C: Application Layer (ports + AuthApplicationService, AccountManagementService, JwtTokenService) - 10 files
+- Phase D: Adapter Layer (controllers, request DTOs, MongoDB docs/repos, RabbitMQ publisher) - 17 files
+- Phase E: Config (RabbitConfig, RootAdminInitializer, application.yml, Dockerfile, build.gradle.kts) - 6 files
+- Phase F: API Gateway (JwtAuthenticationFilter, CorsConfig, application.yml, Dockerfile, build.gradle.kts) - 6 files
+- Phase G: docker-compose.yml, generate-keys.sh, .gitignore - 3 files
+- Phase H: PBT tests (JWT, bcrypt, account lock) + unit tests (AuthApplicationService, gateway filter) - 5 files
+**Context**: CONSTRUCTION Phase - Code Generation stage completed for Auth + Gateway + Shared unit. All design phases now complete for Dev 1 unit.
+
+---

@@ -40,10 +40,10 @@
 
 ### CONSTRUCTION PHASE - Dev 1 (Auth + Gateway + Shared)
 - [x] Functional Design (COMPLETED)
-- [ ] NFR Requirements (IN PROGRESS - 질문 대기: auth-gateway-shared-nfr-requirements-plan.md)
-- [ ] NFR Design
-- [ ] Infrastructure Design
-- [ ] Code Generation
+- [x] NFR Requirements (COMPLETED)
+- [x] NFR Design (COMPLETED)
+- [x] Infrastructure Design (COMPLETED)
+- [x] Code Generation (COMPLETED)
 
 ### CONSTRUCTION PHASE - Dev 2 (User + Resource + History)
 - [ ] User Service - Functional Design (IN PROGRESS - 질문 대기: user-service-functional-design-plan.md)

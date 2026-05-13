@@ -31,7 +31,7 @@
 
 | Unit | Functional Design | NFR Requirements | NFR Design | Infra Design | Code Gen |
 |---|---|---|---|---|---|
-| Auth + Gateway + Shared (Dev 1) | ✅ Complete | ⏸️ 질문 생성됨 (미답변) | ❌ | ❌ | ❌ |
+| Auth + Gateway + Shared (Dev 1) | ✅ Complete | ✅ Complete | ✅ Complete | ✅ Complete | ✅ Complete |
 | User Service (Dev 2) | ⏸️ 질문 생성됨 (미답변) | ❌ | ❌ | ❌ | ❌ |
 | Resource Service (Dev 2) | ❌ | ❌ | ❌ | ❌ | ❌ |
 | History Service (Dev 2) | ❌ | ❌ | ❌ | ❌ | ❌ |
