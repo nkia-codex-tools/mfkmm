@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:sqlite:${DB_PATH:./resource-manager.db}?date_string_format=yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.community.dialect.SQLiteDialect
+    show-sql: false
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
+jwt:
+  secret: ${JWT_SECRET:default-dev-secret-key-change-in-production-min-32-chars}
+  access-token-expiry: 900000
+  refresh-token-expiry: 604800000
+
+admin:
+  email: ${ADMIN_EMAIL:admin@localhost.com}
+  password: ${ADMIN_PASSWORD:admin1234}
+
+rate-limit:
+  login: 10
+  register: 5
+  api: 100
+
+cors:
+  allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+
+server:
+  port: 8080
